@@ -1,0 +1,101 @@
+.App {
+  text-align: center;
+}
+.wrapper {
+  width: 80%;
+  margin: auto;
+  padding: 30px 20px;
+}
+.wrapper h2 {
+  font-size: 20px;
+  line-height: 24px;
+  text-decoration: underline;
+  margin-bottom: 40px;
+}
+.selectFile {
+  width: 250px;
+  height: 70px;
+  max-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px dashed #ccc;
+  position: relative;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.uploadFile {
+  opacity: 0;
+  z-index: 9999;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.ImgBox {
+  position: absolute;
+}
+.upload-wrapper {
+  height: 100%;
+  position: relative;
+}
+.upload-IconWrap {
+  position: absolute;
+  z-index: 99;
+  top: 25%;
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%);
+}
+.upload-IconWrap .chooseText {
+  color: #49c4f3;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.upload-IconWrap p{
+  margin: 0;
+}
+.reset-top {
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.upload-IconWrap .chooseText svg {
+  font-size: 22px;
+  margin-top: -3px;
+}
+.submitBtn {
+  background: #49c4f3;
+  border-radius: 84px;
+  border: none;
+  outline: none;
+  padding: 10px 60px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  justify-content: center;
+  line-height: 17px;
+  text-transform: capitalize;
+}
+.errorText {
+  font-size: 12px;
+  margin-top: 5px;
+  color: red;
+}
+.table {
+  width: 100%;
+}
+.table td,th {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+.table th {
+  border-bottom: unset;
+}
