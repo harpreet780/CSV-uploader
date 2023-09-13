@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdAdd } from "react-icons/io";
 import Papa from "papaparse";
+import { useCSVDownloader } from 'react-papaparse';
 import { Progress } from 'reactstrap';
 
 const CsvUploader = () => {
@@ -13,6 +14,9 @@ const CsvUploader = () => {
   const [emptyLines, setEmptyLines] = useState(0);
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [error, setError] = useState("");
+  const [downloadFile, setDownloadFile] = useState(null);
+
+  const { CSVDownloader } = useCSVDownloader();
 
   const changeHandler = (e) => {
     setFile(e?.target?.files[0]);
@@ -26,19 +30,21 @@ const CsvUploader = () => {
 
       Papa.parse(file, {
         header: true,
+        download: true,
         complete: function (results) {
           const rows = [];
           const fileValues = [];
-          let csvData = results?.data
+          let csvData = results?.data;
           csvData?.map((item, index) => {
             rows?.push(Object.keys(item));
             fileValues?.push(Object.values(item));
             setTotalRows(index);
           })
-            setPercent(0);
-            setParsedData([csvData])
-            setTableRows(rows[0]);
-            setTableValues(fileValues);
+          setParsedData([...csvData])
+          setPercent(0);
+          setTableRows(rows[0]);
+          setTableValues(fileValues);
+          setDownloadFile(file)
 
           let emptyRow = 0;
           csvData?.forEach((row) => {
@@ -57,6 +63,7 @@ const CsvUploader = () => {
     }
   };
 
+
   useEffect(() => {
     if (showProgressBar) {
       const interval = setInterval(() => {
@@ -68,7 +75,7 @@ const CsvUploader = () => {
           else {
             return prev + 10;
           }
-        })                                                                      
+        })
       }, (500))
     }
   }, [showProgressBar, percent])
@@ -99,6 +106,18 @@ const CsvUploader = () => {
             Import csv
           </button>
         </div>
+        <div className="mx-2">
+          <CSVDownloader
+            filename={downloadFile?.name}
+            data={parsedData}  
+            bom={true}
+            className="submitBtn text-decoration-none"
+            style={{ opacity: downloadFile ? 1 : 0.6, cursor: downloadFile ? 'pointer' : 'not-allowed' }}
+          >
+            Download csv
+          </CSVDownloader>
+
+        </div>
       </div>
       {error && <p className='errorText'>{error}</p>}
       {showProgressBar && percent < 100 ?
@@ -107,11 +126,11 @@ const CsvUploader = () => {
           <div className="text-center">{percent}%</div>
         </div>
         : null}
-      { percent === 100 && parsedData.length > 0 &&
+      {percent === 100 && parsedData.length > 0 &&
         <div className='mt-5'>
-          <div className="d-flex align-items-center justify-content-around">
-            <p><b>Total rows:</b> {totalRows}</p>
-            <p><b>Total empty lines:</b> {emptyLines}</p>
+          <div className="d-flex align-items-center justify-content-around mb-4">
+            <p className='m-0'><b>Total rows:</b> {totalRows}</p>
+            <p className='m-0'><b>Total empty lines:</b> {emptyLines}</p>
           </div>
           <table className='table'>
             <thead>

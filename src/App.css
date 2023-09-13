@@ -76,7 +76,7 @@
   border: none;
   outline: none;
   padding: 10px 60px;
-  color: #fff;
+  color: #fff !important;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
@@ -84,6 +84,7 @@
   line-height: 17px;
   text-transform: capitalize;
 }
+
 .errorText {
   font-size: 12px;
   margin-top: 5px;
@@ -98,4 +99,17 @@
 }
 .table th {
   border-bottom: unset;
+}
+.searchField {
+  border-radius: 4px;
+    border: 1px solid #000000;
+    padding: 5px  15px;
+    font-size: 14px;
+    outline: none;
+    height: 35px;
+    width: 320px;
+    color: #000;
+}
+.searchField::placeholder {
+  color: #000;
 }
